@@ -27,6 +27,8 @@ export default function BlogEditor({
     event.preventDefault();
 
     onSubmit({ editorContent, titleInput, image });
+    setTimeout(function () { location.reload(true); }, 1);
+
   };
 
   return (
