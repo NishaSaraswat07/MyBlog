@@ -4,14 +4,9 @@ import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
 import { createSlug } from "@/utils/createSlug";
 import { getPost, editPost, postsCachekey } from "../../../../api-routes/posts";
+import { createPagesServerClient } from "@supabase/auth-helpers-nextjs";
 
 
-// const mockData = {
-//   title: "Community-Messaging Fit",
-//   body: "<p>This is a good community fit!</p>",
-//   image:
-//     "https://media.wired.com/photos/598e35fb99d76447c4eb1f28/16:9/w_2123,h_1194,c_limit/phonepicutres-TA.jpg",
-// };
 export default function EditBlogPost() {
   const router = useRouter();
   /* Use this slug to fetch the post from the database */
@@ -46,4 +41,31 @@ export default function EditBlogPost() {
       onSubmit={handleOnSubmit}
     />
   );
+}
+
+export const getServerSideProps = async (ctx) => {
+  const supabase = createPagesServerClient(ctx)
+  const { slug } = ctx.params
+
+  const { data: { session }, } = await supabase.auth.getSession()
+
+  const {data} = await supabase.from("posts")
+  .select()
+  .single()
+  .eq('slug', slug)
+
+  // console.log(data)
+  const isAuthor = data.user_id === session.user.id
+  //console.log(isAuthor)
+  if(!isAuthor){
+    return{
+      redirect: {
+        destination: `/blog/${slug}`,
+        permanent: true,
+      }
+    }
+  }
+  return {
+    props: {},
+}
 }

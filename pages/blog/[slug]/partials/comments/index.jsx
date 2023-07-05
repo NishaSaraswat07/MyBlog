@@ -10,10 +10,7 @@ export default function Comments({ postId }) {
   foreign key relation to the post.
   */
   mutate(commentCachekey, getComments)
-  // const {data: {data = []} = {}} = useSWR(postId ? `${commentCachekey}${postId}` : null,() => getComments({postId}))
   const {data: {data = []}={}} = useSWR(commentCachekey, getComments)
-  //console.log({postId});
-  //console.log(data)
 
   return (
     <div className={styles.container}>
