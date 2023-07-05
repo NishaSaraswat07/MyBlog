@@ -8,7 +8,7 @@ const LoginPage = () => {
   const supabaseClient = useSupabaseClient()
   const user = useUser()
   const router = useRouter()
-  console.log(user);
+  //console.log(user);
 
   useEffect(() => {
     if(user){

@@ -1,50 +1,31 @@
 import Link from "next/link";
 import styles from "./blog.module.css";
 import Heading from "@components/heading";
-import useSWR from "swr";
-import useSWRMutation from "swr/mutation"
-import { addPost, getPosts, postsCachekey } from "../../api-routes/posts";
+import useSWR, { mutate } from "swr";
+import { getPosts, postsCachekey } from "../../api-routes/posts";
+import { useUser } from '@supabase/auth-helpers-react';
 
-
-// const mockData = [
-//   {
-//     id: "123",
-//     title: "Community-Messaging Fit",
-//     slug: "community-messaging-fit",
-//     createdAt: "2022-02-15",
-//     body: "<p>This is a good community fit!</p>",
-//   },
-//   {
-//     id: "1234",
-//     title: "Why you should use a react framework",
-//     slug: "why-you-should-use-react-framework",
-//     createdAt: "2022-02-12",
-//     body: "<p>This is a good community fit!</p>",
-//   },
-// ];
 export default function Blog() {
-  const { data: { data = [] } = {},mutate } = useSWR(postsCachekey, getPosts)
-//  console.log({data})
-
-const { trigger: addTrigger, isMutating } = useSWRMutation(
-  postsCachekey,
-  addPost,
-)
+  mutate(postsCachekey, getPosts)
+  const { data: { data = [] } = {}} = useSWR(postsCachekey, getPosts)
+  //console.log({data})
+  const user = useUser()
+  console.log(user)
   return (
-    <section>
+    <>
       <Heading>Blog</Heading>
       {data?.map((post) => (
         <Link
-          key={post.slug}
+          key={post.id}
           className={styles.link}
           href={`/blog/${post.slug}`}
         >
           <div className="w-full flex flex-col">
             <p>{post.title}</p>
-            <time className={styles.date}>{post.createdAt}</time>
+            <time className={styles.date}>{post.user_id}</time>
           </div>
         </Link>
       ))}
-    </section>
+    </>
   );
 }
