@@ -1,25 +1,47 @@
+import React,{ useState } from 'react'
 import Link from "next/link";
 import styles from "./blog.module.css";
 import Heading from "@components/heading";
 import useSWR, { mutate } from "swr";
-import { getPosts, postsCachekey } from "../../api-routes/posts";
+import { getPosts, postsCachekey, searchPost } from "../../api-routes/posts";
 import { useUser } from '@supabase/auth-helpers-react';
 import { dateTime } from "../../utils/dateTime";
+import { useRouter } from 'next/router';
 
 export default function Blog() {
 
+  const [searchQuery, setSearchQuery] = useState("")
+  const router = useRouter()
+  
   mutate(postsCachekey, getPosts)
   
   const { data: { data = [] } = {}} = useSWR(postsCachekey, getPosts)
   //console.log({data})
   const user = useUser()
   console.log(user)
-  
+
+  const onSearch = (e) =>{
+    e.preventDefault()
+    router.push(`/search?query=${searchQuery}`)
+    
+}
+
   return (
     <>
+      <form onSubmit={onSearch}>
+            <input 
+            type="text" 
+            placeholder="Search Blog" 
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+            className={styles.inputInset}/>
+        </form>
       <Heading>Blog</Heading>
       <div className={styles.card}>
-        {data?.map((post) => (
+        {data?.filter((post)=>{
+          return searchQuery.toLocaleLowerCase() === '' ? 
+          post: post.title.toLocaleLowerCase().includes(searchQuery)
+        }).map((post) => (
           <Link
             key={post.id}
             className={styles.link}
