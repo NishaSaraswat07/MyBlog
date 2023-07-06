@@ -10,7 +10,7 @@ export default function CreatePost() {
   const user = useUser();
   const {trigger: addTrigger} = useSWRMutation(postsCachekey, addPost)
 
-  const handleOnSubmit = async ({ editorContent, titleInput, image, userId }) => {
+  const handleOnSubmit = async ({ editorContent, titleInput, image }) => {
     const slug = createSlug(titleInput);
     const author = user.email.split('@')[0];
 

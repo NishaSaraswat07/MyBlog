@@ -1,18 +1,52 @@
+.card{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap:20px;
+}
+
+
+.mainCard{
+  width: 350px;
+  height: 300px;
+  background-color: rgb(182, 244, 172);
+  border-radius: 15px;
+}
+
 .container {
   padding-bottom: 40px;
   border-bottom: 1px solid #ccc;
 }
 
 .link {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-  gap: 0.25rem;
-  color: inherit;
-  text-decoration: none;
-  font-weight: 500;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    color: inherit;
+    text-decoration: none;
+    font-weight: 500;
 }
 
-.date {
+.author {
   font-family: monospace;
+  color: rgb(131, 11, 11);
+  font-size: 1rem;
+  margin-top: 90px;
+  padding: 20px;
+}
+
+.title{
+  font-family: monospace;
+  color: rgb(56, 62, 56);
+  font-weight: 400;
+  font-size: 1.5rem;
+  margin:10px;
+}
+.date{
+  display: flex;
+  justify-content: space-between;
+  font-weight: 400;
+  font-size: 1rem;
+  margin-top: 95px;
+  padding: 10px;
 }

@@ -6,6 +6,7 @@
 
 p {
   margin-top: 0.75rem;
+  color: rgb(5, 169, 92);
 }
 
 code {
@@ -80,6 +81,13 @@ code {
   outline: none !important;
 }
 
+.heading{
+  background-color: blue;
+}
+.travelComponent{
+  height: 800px;
+  width: 100%;
+}
 /* 
 :root {
   --max-width: 1100px;

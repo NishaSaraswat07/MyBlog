@@ -1,0 +1,12 @@
+.mainContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.cards{
+    position:relative;
+    margin-left: 10px;
+}
+.heading{
+    margin-bottom: 20px;
+}

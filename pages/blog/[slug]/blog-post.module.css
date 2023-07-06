@@ -1,6 +1,6 @@
 .container {
   padding-bottom: 20px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgb(113, 153, 58);
 }
 
 .link {
@@ -18,8 +18,8 @@
   font-family: monospace;
   padding: 10px;
   border-radius: 5px;
-  background-color: black;
-  color: white;
+  background-color: rgb(159, 236, 96);
+  color: rgb(54, 50, 50);
   width: fit-content;
 }
 
@@ -27,7 +27,7 @@
   margin-top: 40px;
   font-family: monospace;
   display: block;
-  font-size: 14px;
+  font-size: 18px;
 }
 
 .dateContainer {
@@ -38,12 +38,13 @@
 
 .border {
   height: 1px;
-  background: black;
+  background: rgb(113, 153, 58);
   flex: 1 1 0;
 }
 
 .buttonContainer {
   margin-top: 20px;
   display: flex;
+  justify-content: flex-end;
   gap: 5px;
 }

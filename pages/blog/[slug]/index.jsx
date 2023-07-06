@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { supabase } from "@/lib/supabaseClient";
 import styles from "./blog-post.module.css";
 import Comments from "./partials/comments";
 import AddComment from "./partials/add-comment";

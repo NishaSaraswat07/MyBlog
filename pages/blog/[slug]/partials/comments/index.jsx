@@ -18,8 +18,9 @@ export default function Comments({ postId }) {
 
       { 
        data?.map((comment) => (
+         
          postId === comment.postId ?
-          <Comment key={comment.id} {...comment}/> : null
+          <Comment key={comment.id} {...comment} /> : null
           
       ))}
     </div>
