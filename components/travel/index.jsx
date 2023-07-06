@@ -32,7 +32,7 @@ export default function Travel() {
       <div className={styles.mainContainer}>
         {data.map((pic)=>(
           <>
-            <div className={styles.cards} key={pic.id}>
+            <div key={pic.id} className={styles.cards}>
               <Image src={pic.image} alt="travel pic" width={360} height={360} priority />
             </div>
           </>

@@ -19,11 +19,16 @@ export default function CreatePost() {
       title: titleInput,
       slug: slug,
       user_id: user.id,
-      author: author
+      author: author,
+      image,
     }
     const {data, error} = await addTrigger(newPost)
-    console.log(data, error)
-    console.log({newPost})
+    //console.log(data, error)
+    //console.log({newPost})
+    if(!error){
+      router.push(`/blog/${slug}`)
+    }
+   
   };
 
   return (

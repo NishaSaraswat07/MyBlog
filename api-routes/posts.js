@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabaseClient";
+import { uploadImage } from "../utils/uploadImage";
 export const postsCachekey = "/api/blogs";
 
 export const getPosts = async () => {
@@ -24,14 +25,21 @@ export const getPost = async ({ slug }) => {
   return { data, error, status }
 };
 export const addPost = async ( _, {arg: newPost} ) => {
-  console.log({...newPost})
+  let image = ""
+
+  if(newPost?.image){
+    const { publicUrl, error } = await uploadImage(newPost?.image)
+    
+    if(!error){
+      image = publicUrl
+    }
+  }
   const { data, error } = await supabase
       .from("posts")
-      .insert(newPost)
+      .insert({...newPost, image})
       .select()
       .single()
-       //.select('*, users(id)')
-      console.log(data, error)
+      //console.log(data, error)
     return {data, error};
 }
 
@@ -48,9 +56,19 @@ export const removePost = async (_,{arg: id}) => {
 
 export const editPost = async (_, {arg: updatedPost}) => {
   //Handle edit post here
+  let image = updatedPost?.image ?? ""
+
+  const isNewImage = typeof image === "object" && image !== null;
+  if(isNewImage){
+    const { publicUrl, error } = await uploadImage(updatedPost?.image)
+    
+    if(!error){
+      image = publicUrl
+    }
+  }
   const { data, error, status } = await supabase
   .from("posts")
-  .update(updatedPost)
+  .update({ ...updatedPost, image })
   .eq("id", updatedPost.id)
   .select()
   .single()

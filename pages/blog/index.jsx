@@ -7,6 +7,7 @@ import { getPosts, postsCachekey, searchPost } from "../../api-routes/posts";
 import { useUser } from '@supabase/auth-helpers-react';
 import { dateTime } from "../../utils/dateTime";
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 export default function Blog() {
 
@@ -49,6 +50,11 @@ export default function Blog() {
           >
             <div className={styles.mainCard}>
               <p className={styles.title}>{post.title}</p>
+              <Image src={post.image} 
+              alt="travelpic" 
+              height={200} 
+              width={300} 
+              priority style={{borderRadius:20}}/>
               <div className={styles.date}>
                 <p className={styles.author}>{post.author}</p>
                 <time className={styles.date}>{dateTime(post.created_at)}</time>
